@@ -1,0 +1,11 @@
+.buttons {
+    font-size: 1.3em;
+    padding: 1em;
+    border-radius: 8px;
+    background-color: #0a0027;
+    color: #ffffff;
+    border: none;
+    position: relative;
+    margin: 1.5em auto 0 auto;
+    display: block;
+  }
