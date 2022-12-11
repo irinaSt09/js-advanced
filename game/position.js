@@ -1,8 +1,10 @@
-class Position {
+export class Position {
+    column;
+    row;
 
-    constructor(row, column) {
-        this.row = row;
-        this.column = column;
+    constructor(rowValue, columnValue) {
+        this.column = columnValue;
+        this.row = rowValue;
     }
 
     get row() {
@@ -13,11 +15,11 @@ class Position {
         return this.column;
     }
 
-    set row(row) {
-        this.row = row;
+    set row(value) {
+        this.row = value;
     }
 
-    set column(column) {
-        this.column = column;
+    set column(value) {
+        this.column = value;
     }
 }
