@@ -1,3 +1,100 @@
+class Position {
+
+    constructor(row, column) {
+        this.row = row;
+        this.column = column;
+    }
+
+    get row() {
+        return this.row;
+    }
+
+    get column() {
+        return this.column;
+    }
+
+    set row(row) {
+        this.row = row;
+    }
+
+    set column(column) {
+        this.column = column;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+const empty = '-';
+const noWinnerNoMoves = 'N';
+
+class Board {
+
+    tiles = [
+        [empty, empty],
+        [empty, empty],
+        [empty, empty]
+    ];
+
+    constructor() {
+    }
+
+    getTile(row, col) {
+        return tiles[row][col];
+    }
+
+    setTile(row, col, symbol) {
+        tiles[row][col] = symbol;
+    }
+
+    print() {
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                console.log(tiles[row][col] + " ");
+            }
+            console.log();
+        }
+    }
+
+    hasMoreMoves() {
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                if (this.tiles[row][col] == empty) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    getWinnerSymbol() {
+        for (let row = 0; row < 3; row++) {
+            if (tiles[row][0] == tiles[row][1] && tiles[row][1] == tiles[row][2]) {
+                return tiles[row][0];
+            }
+        }
+
+        for (let col = 0; col < 3; col++) {
+            if (tiles[0][col] == tiles[1][col] && tiles[1][col] == tiles[2][col]) {
+                return tiles[0][col];
+            }
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (tiles[0][0] == tiles[1][1] && tiles[1][1] == tiles[2][2]) {
+                return tiles[0][0];
+            }
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (tiles[0][2] == tiles[1][1] && tiles[1][1] == tiles[2][0]) {
+                return tiles[0][2];
+            }
+        }
+
+        return noWinnerNoMoves;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
 
 const maxScore = 100;
 const minScore = -100;
@@ -8,21 +105,13 @@ isPersonTurn = false;
 
 class Game {
 
-    board;
-
-    constructor() {
-        personSymbol = 'O';
-        computerSymbol = 'X';
-        isPersonTurn = false;
-
-        this.board = new Board();
-    }
-
+    board = new Board();
 
     start() {
         var row = 1;
         var col = 0;
-        while (board.hasMoreMoves()) {
+
+        while (this.board.hasMoreMoves()) {
             if (isPersonTurn) {
                 do {
                     row = readLine("Choose row [1-3]: ");
@@ -44,7 +133,7 @@ class Game {
                     return;
                 }
             }
-            let bestComputerPosition = findBestComputerPosition();
+            let bestComputerPosition = this.findBestComputerPosition();
             board.setTile(bestComputerPosition.getRow(), bestComputerPosition.getColumn(), computerSymbol);
             console.log();
             board.print();
@@ -77,14 +166,14 @@ class Game {
 
 
     findBestComputerPosition() {
-        bestValue = Integer.MIN_VALUE;
+        const bestValue = -2147483648;
         bestNextPosition = new Position(-1, -1);
 
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
                 if (board.getTile(row, col) == EMPTY) {
                     board.setTile(row, col, computerSymbol);
-                    currentValue = minimizer(Integer.MIN_VALUE, Integer.MAX_VALUE, 0);
+                    currentValue = minimizer(bestValue, 2147483648, 0);
                     board.setTile(row, col, EMPTY);
 
                     if (currentValue > bestValue) {
@@ -158,3 +247,11 @@ class Game {
         return bestScore;
     }
 }
+
+
+//----------------------------------------------------------------------------------------------------
+
+game = new Game();
+
+game.start();
+//----------------------------------------------------------------------------------------------------
