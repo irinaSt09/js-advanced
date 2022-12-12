@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+</head>
+
+<body>
+    <script type="module" src="file:///Users/I550388/js-advanced/firebase/firebase-config.js">
+        createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in 
+                console.log(userCredential)
+                const user = userCredential.user;
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+
+        document.getElementById('submit').addEventListener('click', register);
+
+        function register(event) {
+            event.preventDefault();
+
+            let email = document.querySelector('#email').value;
+            let password = document.querySelector('#password').value;
+            let confirmPassword = document.querySelector('#confirm-password').value;
+            const loginErrorMsg = document.getElementById("login-error-msg");
+
+            if (password !== confirmPassword) {
+                loginErrorMsg.style.opacity = 1;
+            } else {
+                createUserWithEmailAndPassword(email, password);
+            }
+        }
+    </script>
+
+    <div class="body">
+        <div class="nav-bar">
+            <a href="login.html">
+                <button class="btn"><i class="fas fa-sign-in-alt">Login</i></button>
+            </a>
+        </div>
+
+        <h1 style=color:#454545>The Tic Tac Toe</h1>
+        <div class="register-form">
+            <h1 style=color:#454545>Join the community</h1>
+
+            <div class="input" id="account-form">
+                <input type="text" id="email" name="email" placeholder="Email" class="email">
+                <input type="password" id="password" name="password" placeholder="Password" class="password">
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password">
+            </div>
+
+            <div class="buttons-form">
+                <a href="login.html">
+                    <button type="submit" class="submit" id="submit"><i class="fas fa-sign-in-alt"></i>Submit</button>
+                </a>
+            </div>
+
+            <div id="login-error-msg">
+                Invalid username and/or password
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
