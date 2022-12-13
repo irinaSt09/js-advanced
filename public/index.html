@@ -1,33 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles-board.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
-   <div class="wrapper">
-       <div class="container">
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-       </div>
-       <button id="restart" class="buttons">Restart</button>
-   </div>
-   <div class="popup hide">
-       <p id="message">Sample Message</p>
-       <button id="new-game">New Game</button>
-   </div>
-       <script src="game-board.js"></script>
-       <script src="/socket.io/socket.io.js"></script>
-<script>
-  var socket = io();
-</script> 
+    <script type="module" src="/firebase/firebase-config.js">
+        document.querySelector("#login").addEventListener("click", () => {
+            login();
+        });
+
+        const login = () => {
+            const email = document.querySelector("#login-email").value;
+            const password = document.querySelector("#login-password").value;
+
+            if (email.trim() == "") {
+                alert("Enter Email");
+            } else if (password.trim() == "") {
+                alert("Enter Password");
+            } else {
+                authenticate(email, password);
+            }
+        };
+
+        const authenticate = (email, password) => {
+            signInWithEmailAndPassword(auth, email, password);
+        };
+
+        const signOutUser = () => {
+            signOut()
+                .then(function () {
+                    location.reload();
+                });
+        };
+    </script>
+
+    <div class="body">
+        <div class="nav-bar">
+            <a href="home.html">
+                <button class="btn"><i class="fa fa-home"></i></button>
+            </a>
+        </div>
+        <h1 style=color:#454545>The Bloggerville</h1>
+        <div class="login-form" id="login">
+            <h1 style=color:#454545>Login</h1>
+
+            <div class="input">
+                <input type="text" id="login-email" name="email" placeholder="Email">
+                <input type="password" id="login-password" name="password" placeholder="Password">
+            </div>
+
+            <div class="buttons-form">
+                <a href="home-page.html">
+                    <button type="button" class="submit" id="login">Submit</button>
+                </a>
+                <a href="registration.html">
+                    <button type="button" class="account">Create account</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

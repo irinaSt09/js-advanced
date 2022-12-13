@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles-board.css">
+</head>
+<body>
+   <div class="wrapper">
+       <div class="container">
+           <!-- only one click in box validation -->
+           <button class="button-option" id="btn-first" onclick="mark(); this.onclick=null;"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+           <button class="button-option"></button>
+       </div>
+       <button id="btn-restart" class="buttons" onclick="refreshPage()">New Game</button>
+   </div>
+   <div >
+   </div>
+       <script src="game-board.js"></script>
+       <script src="/socket.io/socket.io.js"></script>
+</body>
+</html>

@@ -13,9 +13,8 @@ const cwd = process.cwd(); // current working directory
 const clients = {}; // to save connected clients
 
 app.get('/', (req, res) => {
-   // res.sendFile(__dirname + '/index.html');
    const path = join(cwd, 'public', 'index.html'); // working only with "public" and "index" names
-   res.sendFile(path); // or readstream
+   res.sendFile(path);
 });
 
 const addClient = socket => {
@@ -43,6 +42,17 @@ io.sockets.on("connection", socket => {
         socket.broadcast.emit("clientdisconnect", id);
     });
 });
+
+// to do
+function joinGame(socket) {
+    // add player to object of all players
+    players[socket.id] = 
+    {
+      opponent: unpaired, // initial state - without opponent
+      mark: "X", // set X to first player (can be image)
+      socket: socket // socket of the player
+    };
+}
   
 server.listen(port, () => {
     console.log(`listening on port ${port}`);
