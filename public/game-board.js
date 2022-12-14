@@ -1,3 +1,4 @@
+debugger;
 var socket = io();
 
 function refreshPage()

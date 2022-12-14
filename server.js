@@ -29,13 +29,7 @@ const removeClient = socket => {
 
 io.sockets.on("connection", socket => {
     let id = socket.id;
-
     addClient(socket);
-
-    socket.on("mousemove", data => {
-        data.id = id;
-        socket.broadcast.emit("moving", data);
-    });
 
     socket.on("disconnect", () => {
         removeClient(socket);
