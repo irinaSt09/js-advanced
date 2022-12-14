@@ -14,7 +14,7 @@ export class Game {
     board = new Board();
 
     start() {
-        let row = 1;
+        let row = 0;
         let col = 0;
 
         while (this.board.hasMoreMoves()) {

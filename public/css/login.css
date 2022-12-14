@@ -1,0 +1,92 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.body {
+    height: 800px;
+    width: 920px;
+    font-size: 16px;
+    background: linear-gradient(-100deg, #c0d8d8 80%, #F9CFCB 30%);
+    font-family: Helvetica, sans-serif;
+}
+
+.login-form {
+    max-width: 32rem;
+    width: 90%;
+    padding: 2.5rem;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px 5px 5px 5px;
+}
+
+h1 {
+    font-size: 1.7rem;
+    font-weight: normal;
+    font-family: "Times New Roman", Times, serif;
+    text-align: center;
+}
+
+.input {
+    padding-top: 5%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5%;
+}
+
+input {
+    margin-top: 20px;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #79a0a0
+}
+
+input:focus {
+    border-color: #074444
+}
+
+.buttons-form {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    margin-left: 390px;
+}
+
+.submit {
+    margin-top: 10px;
+    text-align: center;
+    height: 30px;
+    width: 120px;
+    border-radius: 15px 15px 15px 15px;
+    background-color: #f7bbb5;
+    border: none;
+    color: white;
+}
+
+.account {
+    padding-top: 20px;
+    padding-left: 15px;
+    background-color: transparent;
+    border: white;
+    color: #3e9292;
+}
+
+.nav-bar {
+    padding-top: 5%;
+    padding-left: 5%;
+}
+
+.btn {
+    font-size: large;
+    font-family: "Times New Roman";
+    border-radius: 5px 5px 5px 5px;
+    text-align: center;
+    border-radius: 2px 2px 2px 2px;
+    background-color: white;
+    border-color: #f7fdfd;
+    color: #074444;
+}
