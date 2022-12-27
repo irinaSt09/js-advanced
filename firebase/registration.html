@@ -10,36 +10,8 @@
 </head>
 
 <body>
-    <script type="module" src="file:///Users/I550388/js-advanced/firebase/firebase-config.js">
-        createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in 
-                console.log(userCredential)
-                const user = userCredential.user;
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
-            });
-
-        document.getElementById('submit').addEventListener('click', register);
-
-        function register(event) {
-            event.preventDefault();
-
-            let email = document.querySelector('#email').value;
-            let password = document.querySelector('#password').value;
-            let confirmPassword = document.querySelector('#confirm-password').value;
-            const loginErrorMsg = document.getElementById("login-error-msg");
-
-            if (password !== confirmPassword) {
-                loginErrorMsg.style.opacity = 1;
-            } else {
-                createUserWithEmailAndPassword(email, password);
-            }
-        }
+    <script type="module" src="firebase-config.js">
+        
     </script>
 
     <div class="body">

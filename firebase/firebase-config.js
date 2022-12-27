@@ -1,10 +1,7 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyB0tD1jeGxQpJ6x1VK6-BKv6dZ12O2o5lQ",
     authDomain: "tic-tac-toe-a0f2f.firebaseapp.com",
@@ -15,21 +12,42 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const database = getDatabase(app);
 
-const auth = getAuth(app);
+let formMessage = ref(database, 'register');
 
-firebase.auth().createUserWithEmailAndPassword( email, password)
-    .then((userCredential) => {
-        // Signed in 
-        console.log(userCredential)
-        const user = userCredential.user;
-        // ...
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
+document.getElementById('submit').addEventListener('click', register);
+
+export function register(event) {
+    event.preventDefault();
+
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirm-password').value;
+    const loginErrorMsg = document.getElementById("login-error-msg");
+
+    if (password !== confirmPassword) {
+        loginErrorMsg.style.opacity = 1;
+    } else {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                sendMessage(email, password); 
+                alert('You have successfully created an account.')
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    }
+}
+
+function sendMessage(email, password) {
+    const accontsRef = push(formMessage);
+    set(accontsRef, {
+        email: email,
+        password: password
     });
+}
 
 signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
