@@ -27,7 +27,7 @@
             </div>
 
             <div class="buttons-form">
-                <a href="home-page.html">
+                <a href="games.html">
                     <button type="button" class="submit" id="login" onclick="login()">Submit</button>
                 </a>
                 <a href="registration.html">
@@ -53,10 +53,11 @@
         const db = getDatabase(app);
         const auth = getAuth();
 
+        let formMessage = ref(db, 'login');
 
         const login = () => {
-            const email = document.querySelector("#login-email").value;
-            const password = document.querySelector("#login-password").value;
+            var email = document.getElementById('login-email').value;
+            var password = document.getElementById('login-password').value;
 
             if (email.trim() == "") {
                 //alert("Enter Email");
@@ -68,11 +69,18 @@
         };
 
         const authenticate = (email, password) => {
-            signInWithEmailAndPassword(auth, email, password).catch(function (error) {
-                var errorMessage = error.message;
-                console.log(errorMessage);
-                alert(errorMessage)
-            });
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    sendMessage(email, password);
+                    alert('You have successfully created an account.')
+                })
+                .catch((error) => {
+                    alert(error);
+                });
+        }
+
+        function sendMessage(email, password) {
+            push(formMessage);
         }
 
         const signOutUser = () => {
@@ -83,4 +91,5 @@
         };
     </script>
 </body>
+
 </html>
