@@ -11,36 +11,6 @@
 </head>
 
 <body>
-    <script type="module" src="/firebase/firebase-config.js">
-        document.querySelector("#login").addEventListener("click", () => {
-            login();
-        });
-
-        const login = () => {
-            const email = document.querySelector("#login-email").value;
-            const password = document.querySelector("#login-password").value;
-
-            if (email.trim() == "") {
-                alert("Enter Email");
-            } else if (password.trim() == "") {
-                alert("Enter Password");
-            } else {
-                authenticate(email, password);
-            }
-        };
-
-        const authenticate = (email, password) => {
-            signInWithEmailAndPassword(auth, email, password);
-        };
-
-        const signOutUser = () => {
-            signOut()
-                .then(function () {
-                    location.reload();
-                });
-        };
-    </script>
-
     <div class="body">
         <div class="nav-bar">
             <a href="home.html">
@@ -58,7 +28,7 @@
 
             <div class="buttons-form">
                 <a href="home-page.html">
-                    <button type="button" class="submit" id="login">Submit</button>
+                    <button type="button" class="submit" id="login" onclick="login()">Submit</button>
                 </a>
                 <a href="registration.html">
                     <button type="button" class="account">Create account</button>
@@ -66,6 +36,51 @@
             </div>
         </div>
     </div>
-</body>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js";
+        import { getDatabase, set, ref, push } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-auth.js";
 
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0tD1jeGxQpJ6x1VK6-BKv6dZ12O2o5lQ",
+            authDomain: "tic-tac-toe-a0f2f.firebaseapp.com",
+            projectId: "tic-tac-toe-a0f2f",
+            storageBucket: "tic-tac-toe-a0f2f.appspot.com",
+            messagingSenderId: "1020026501154",
+            appId: "1:1020026501154:web:045b986e4bd1611f0a727b"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth();
+
+
+        const login = () => {
+            const email = document.querySelector("#login-email").value;
+            const password = document.querySelector("#login-password").value;
+
+            if (email.trim() == "") {
+                //alert("Enter Email");
+            } else if (password.trim() == "") {
+                //alert("Enter Password");
+            } else {
+                authenticate(email, password)
+            }
+        };
+
+        const authenticate = (email, password) => {
+            signInWithEmailAndPassword(auth, email, password).catch(function (error) {
+                var errorMessage = error.message;
+                console.log(errorMessage);
+                alert(errorMessage)
+            });
+        }
+
+        const signOutUser = () => {
+            signOut()
+                .then(function () {
+                    location.reload();
+                });
+        };
+    </script>
+</body>
 </html>
