@@ -9,7 +9,7 @@ function refreshPage()
 function mark()
 {
     const cross = document.createElement("img");
-    cross.setAttribute("src", "cross.png");
+    cross.setAttribute("src", "./images/cross.png");
     cross.setAttribute("id", "img-cross");
     document.getElementById("btn-first").appendChild(cross); // but for all boxes + for O
     document.getElementById("img-cross").width = "100";
