@@ -37,13 +37,6 @@ var socket = io.connect();
 var room = "gameRoom";
 const players = {};
 
-function newLocation() {
-    alert('clicked')
-    window.location.href = "home-page.html";
-}
-
-document.getElementById('play').addEventListener('click', alert('clicked'));
-
 const btnPlay = document.querySelector(".read-bnt");
 if(btnPlay)
     {
