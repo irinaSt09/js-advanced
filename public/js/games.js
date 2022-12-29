@@ -31,3 +31,24 @@ const showGame = (game) => {
     </div>
     `;
 }
+
+var socket = io.connect();
+
+var room = "gameRoom";
+const players = {};
+
+const btnPlay = document.querySelector(".read-bnt");
+if(btnPlay)
+    {
+        btnPlay.addEventListener("click", function() {
+            alert('clicked');
+            socket.emit('join', room);
+            console.log('joined');
+        });
+    }
+
+// socket.on('join', function() {
+//     // socket.emit('roomName', room);
+//     // console.log('joined');
+//     // console.log(room);
+// })

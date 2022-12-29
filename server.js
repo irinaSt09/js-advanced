@@ -10,7 +10,8 @@ const {join} = require('path'); // to join paths
 app.use(express.static('public')) // serve the static files
 const cwd = process.cwd(); // current working directory
 
-const clients = {}; // to save connected clients
+const users = {}; // to save connected users
+const players = {};
 
 app.get('/', (req, res) => {
    const path = join(cwd, 'public', 'index.html'); // working only with "public" and "index" names
@@ -19,34 +20,42 @@ app.get('/', (req, res) => {
 
 const addClient = socket => {
     console.log("New client connected", socket.id);
-    clients[socket.id] = socket;
+    users[socket.id] = socket;
 };
 
 const removeClient = socket => {
     console.log("Client disconnected", socket.id);
-    delete clients[socket.id];
+    delete users[socket.id];
 };
 
 io.sockets.on("connection", socket => {
     let id = socket.id;
     addClient(socket);
 
+    socket.on('join', (roomName, cb) =>
+    {
+        socket.join(roomName);
+        cb(players[roomName]);
+        console.log("New player joined", socket.id);
+    })
+
     socket.on("disconnect", () => {
         removeClient(socket);
         socket.broadcast.emit("clientdisconnect", id);
     });
+
 });
 
 // to do
-function joinGame(socket) {
-    // add player to object of all players
-    players[socket.id] = 
-    {
-      opponent: unpaired, // initial state - without opponent
-      mark: "X", // set X to first player (can be image)
-      socket: socket // socket of the player
-    };
-}
+// function joinGame(socket) {
+//     // add player to object of all players
+//     players[socket.id] = 
+//     {
+//       opponent: unpaired, // initial state - without opponent
+//       mark: "X", // set X to first player (can be image)
+//       socket: socket // socket of the player
+//     };
+// }
   
 server.listen(port, () => {
     console.log(`listening on port ${port}`);
