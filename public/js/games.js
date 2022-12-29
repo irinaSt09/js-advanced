@@ -27,7 +27,7 @@ const showGame = (game) => {
         <h1>Game Tic Tac Toe</h1>
         <p class="game-description">Players number: ${data.players_number}</p>
         <p class="game-description">Opponent: ${data.partner}</p>
-        <a href="home-page.html?${game.id}" class="read-bnt">Play</a>
+        <a href="home-page.html?${game.id}" class="read-bnt" id="read-btn">Play</a>
     </div>
     `;
 }
@@ -36,6 +36,13 @@ var socket = io.connect();
 
 var room = "gameRoom";
 const players = {};
+
+function newLocation() {
+    alert('clicked')
+    window.location.href = "home-page.html";
+}
+
+document.getElementById('play').addEventListener('click', alert('clicked'));
 
 const btnPlay = document.querySelector(".read-bnt");
 if(btnPlay)
