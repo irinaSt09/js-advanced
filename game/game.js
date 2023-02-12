@@ -1,63 +1,73 @@
-import { Board, EMPTY } from "./board.js"
+import { Board } from "./board.js"
 import { Position } from "./position.js";
-import * as readlineSync from 'readline-sync';
 
 const maxScore = 100;
 const minScore = -100;
-const person = 'PERSON';
 let personSymbol = 'O';
 let computerSymbol = 'X';
-let isPersonTurn = false;
 
 export class Game {
 
-    board = new Board();
+    constructor() {
+        this.board = new Board();
+    }
 
-    start() {
+    start(cells) {
         let row = 0;
         let col = 0;
-
-        while (this.board.hasMoreMoves()) {
-            if (isPersonTurn) {
-                do {
-                    row = readlineSync.question("Choose row [1-3]: ");
-                    col = readlineSync.question("Choose column [1-3]: ");
-                    row--;
-                    col--;
-                } while (!this.canMakeTurn(row, col));
-
-                this.board.setTile(row, col, personSymbol);
-                console.log();
-                this.board.print();
-                isPersonTurn = false;
-                if (this.board.getWinnerSymbol() == personSymbol) {
-                    console.log("Congratulations, you win the game!");
-                    return;
+        for (let i = 0; i < cells.length; i++) {
+            cells[i].addEventListener("click", () => {
+                let coordinates = findCellIndex(i)
+                row = coordinates[0];
+                col = coordinates[1];
+                if (!this.canMakeTurn(row, col)) {
+                    alert("wrong move")
+                } else {
+                    cells[i].innerHTML = personSymbol
+                    console.log(this.board)
+                    this.board.setTile(row, col, personSymbol);
+                    if (!this.checkForWinner()) {
+                        this.makeCompTurn()
+                    }
                 }
-                if (!this.board.hasMoreMoves()) {
-                    console.log("Draw!");
-                    return;
-                }
-            }
-            let bestComputerPosition = this.findBestComputerPosition();
-            this.board.setTile(bestComputerPosition.row, bestComputerPosition.column, computerSymbol);
-            console.log();
-            this.board.print();
-            isPersonTurn = true;
-            if (this.board.getWinnerSymbol() == computerSymbol) {
-                console.log("Sorry, you lost the game!");
-                return;
-            }
-            if (!this.board.hasMoreMoves()) {
-                console.log("Draw!");
-                return;
-            }
-
+            });
         }
     }
 
+    makeCompTurn() {
+        if (this.board.hasMoreMoves()) {
+            let bestComputerPosition = this.findBestComputerPosition();
+            this.board.setTile(bestComputerPosition.row, bestComputerPosition.column, computerSymbol);
+            this.changeComputerSymbol(bestComputerPosition.row, bestComputerPosition.column)
+            if (this.checkForWinner()) {
+                return;
+            }
+        }
+    }
+
+    changeComputerSymbol(row, col) {
+        let cellID = "cell-" + (row * 3 + col)
+        let cell = document.getElementById(cellID)
+        cell.innerHTML = computerSymbol
+    }
+
     canMakeTurn(row, col) {
-        return this.board.getTile(row, col) == EMPTY;
+        return this.board.getTile(row, col) == '-';
+    }
+
+    checkForWinner() {
+        if (this.board.getWinnerSymbol() == personSymbol) {
+            alert("You win!")
+            return true;
+        } else if (this.board.getWinnerSymbol() == computerSymbol) {
+            alert("Sorry, you lost the game!");
+            return true;
+        } else if (!this.board.hasMoreMoves()) {
+            alert("Draw!");
+            return true;
+        }
+
+        return false;
     }
 
     evaluateBoard(depth) {
@@ -77,10 +87,10 @@ export class Game {
 
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                if (this.board.getTile(row, col) == EMPTY) {
+                if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, computerSymbol);
                     let currentValue = this.minimizer(bestValue, 2147483648, 0);
-                    this.board.setTile(row, col, EMPTY);
+                    this.board.setTile(row, col, '-');
 
                     if (currentValue > bestValue) {
                         bestNextPosition.row = row;
@@ -108,10 +118,10 @@ export class Game {
         let bestResult = 2147483648;
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                if (this.board.getTile(row, col) == EMPTY) {
+                if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, personSymbol);
                     bestResult = Math.min(bestResult, this.maximizer(a, b, depth + 1));
-                    this.board.setTile(row, col, EMPTY);
+                    this.board.setTile(row, col, '-');
                     if (bestResult <= a) {
                         return bestResult;
                     }
@@ -139,10 +149,10 @@ export class Game {
         let bestScore = -2147483648;
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                if (this.board.getTile(row, col) == EMPTY) {
+                if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, computerSymbol);
                     bestScore = Math.max(bestScore, this.minimizer(a, b, depth + 1));
-                    this.board.setTile(row, col, EMPTY);
+                    this.board.setTile(row, col, '-');
                     if (bestScore >= b) {
                         return bestScore;
                     }
@@ -152,4 +162,42 @@ export class Game {
         }
         return bestScore;
     }
+}
+
+function findCellIndex(id) {
+    let coordinates = [0, 0];
+    switch (id) {
+        case 0:
+            coordinates = [0, 0];
+            break;
+        case 1:
+            coordinates = [0, 1];
+            break;
+        case 2:
+            coordinates = [0, 2];
+            break;
+        case 3:
+            coordinates = [1, 0];
+            break;
+        case 4:
+            coordinates = [1, 1];
+            break;
+        case 5:
+            coordinates = [1, 2];
+            break;
+        case 6:
+            coordinates = [2, 0];
+            break;
+        case 7:
+            coordinates = [2, 1];
+            break;
+        case 8:
+            coordinates = [2, 2];
+            break;
+        default:
+            console.log("Input is incorrect");
+            break;
+    }
+
+    return coordinates;
 }

@@ -1,15 +1,13 @@
-export const EMPTY = '-';
 const noWinnerNoMoves = 'N';
 
 export class Board {
 
-    tiles = [
-        [EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY]
-    ];
-
     constructor() {
+        this.tiles = [
+            ['-', '-', '-'],
+            ['-', '-', '-'],
+            ['-', '-', '-']
+        ];
     }
 
     getTile(row, col) {
@@ -32,15 +30,19 @@ export class Board {
     hasMoreMoves() {
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
-                if (this.tiles[row][col] == EMPTY) {
+                if (this.tiles[row][col] == '-') {
                     return true;
                 }
             }
         }
-        return false;
+        return false; c
     }
 
     getWinnerSymbol() {
+        if (this.tiles[2][0] === this.tiles[2][1] && this.tiles[2][0] === this.tiles[2][2]) {
+            return this.tiles[2][0];
+        }
+
         for (let row = 0; row < 3; row++) {
             if (this.tiles[row][0] == this.tiles[row][1] && this.tiles[row][1] == this.tiles[row][2]) {
                 return this.tiles[row][0];
