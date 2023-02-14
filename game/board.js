@@ -39,24 +39,31 @@ export class Board {
     }
 
     getWinnerSymbol() {
-        const patterns = [
-            // horizontal
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            // vertical
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            // diagonal
-            [0, 4, 8],
-            [2, 4, 6],
-        ];
+        if (this.tiles[2][0] === this.tiles[2][1] && this.tiles[2][0] === this.tiles[2][2]) {
+            return this.tiles[2][0];
+        }
 
-        for (let pattern of patterns) {
-            const [a, b, c] = pattern;
-            if (this.tiles[a] !== "" && this.tiles[a] === this.tiles[b] && this.tiles[b] === this.tiles[c]) {
-                return this.tiles[a];
+        for (let row = 0; row < 3; row++) {
+            if (this.tiles[row][0] == this.tiles[row][1] && this.tiles[row][1] == this.tiles[row][2]) {
+                return this.tiles[row][0];
+            }
+        }
+
+        for (let col = 0; col < 3; col++) {
+            if (this.tiles[0][col] == this.tiles[1][col] && this.tiles[1][col] == this.tiles[2][col]) {
+                return this.tiles[0][col];
+            }
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (this.tiles[0][0] == this.tiles[1][1] && this.tiles[1][1] == this.tiles[2][2]) {
+                return this.tiles[0][0];
+            }
+        }
+
+        for (let i = 0; i < 3; i++) {
+            if (this.tiles[0][2] == this.tiles[1][1] && this.tiles[1][1] == this.tiles[2][0]) {
+                return this.tiles[0][2];
             }
         }
 

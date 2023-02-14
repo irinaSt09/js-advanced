@@ -8,6 +8,7 @@ const cells = board.getElementsByTagName("td");
 //game.start(cells)
 
 // Define startNewGame function in the global scope
-window.startNewGame = function() {
+window.startNewGame = function () {
+    //location.reload()
     game.start(cells);
 };

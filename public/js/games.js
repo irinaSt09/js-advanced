@@ -41,7 +41,7 @@ const btnPlay = document.querySelector(".read-bnt");
 if(btnPlay)
     {
         btnPlay.addEventListener("click", function() {
-            alert('clicked');
+            //alert('clicked');
             socket.emit('join', room);
             console.log('joined');
         });

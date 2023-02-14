@@ -23,7 +23,6 @@
             <h1 class="small">
                 Immerse yourself in the adventure
             </h1>
-            <a href="home-page.html" class="bnt">Play a game</a>
             <input id="play" class="bnt" type="button" value="Play a game" onclick="newLocation()">
         </div>
     </header>
@@ -38,11 +37,11 @@
 
     <script>
         function newLocation() {
-            alert('clicked')
-            window.location.href = "home-page.html";
+            //alert('clicked')
+            window.location.href = "computer-play-board.html";
         }
 
-        document.getElementById('play').addEventListener('click', alert('clicked'));
+        document.getElementById('play').addEventListener('click', console.log('clicked'));
     </script>
 </body>
 
