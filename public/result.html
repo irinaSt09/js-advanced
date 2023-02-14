@@ -5,43 +5,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        td {
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            vertical-align: middle;
-            border: 1px solid black;
-        }
-    </style>
+    <title>Computer Play</title>
+    <link rel="stylesheet" href="./css/styles-board.css">
+    <script type="module" src="../game/engine.js"></script>
 </head>
 
 <body>
-
-    <table id="board">
-        <tr>
-            <td id="cell-0"></td>
-            <td id="cell-1"></td>
-            <td id="cell-2"></td>
-        </tr>
-        <tr>
-            <td id="cell-3"></td>
-            <td id="cell-4"></td>
-            <td id="cell-5"></td>
-        </tr>
-        <tr>
-            <td id="cell-6"></td>
-            <td id="cell-7"></td>
-            <td id="cell-8"></td>
-        </tr>
-    </table>
-    <script type="module" src="../game/engine.js"></script>
-
+    <div class="wrapper">
+        <div class="container">
+            <table id="board">
+                <tr>
+                    <td id="cell-0" class="button-option"></td>
+                    <td id="cell-1" class="button-option"></td>
+                    <td id="cell-2" class="button-option"></td>
+                </tr>
+                <tr>
+                    <td id="cell-3" class="button-option"></td>
+                    <td id="cell-4" class="button-option"></td>
+                    <td id="cell-5" class="button-option"></td>
+                </tr>
+                <tr>
+                    <td id="cell-6" class="button-option"></td>
+                    <td id="cell-7" class="button-option"></td>
+                    <td id="cell-8" class="button-option"></td>
+                </tr>
+            </table>
+        </div>
+        <script type="module" src="../game/engine.js"></script>
+        <button id="btn-restart" class="buttons" onclick="startNewGame()">New Game</button>
+    </div>
 </body>
 
 </html>
