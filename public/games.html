@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
     <script defer type="module" src="js/games.js"></script>
-    <link rel="stylesheet" href="css/games.css">
-</head>
+    <link rel="stylesheet" href="css/games.css" />
+  </head>
 
-<body>
-    <nav id="nav-bar" class=navbar>
-        <h1>Tic Tac Toe</h1>
-        <a href="register.html" class="container">
-            <button type="button" click="signOutUser()" class="signOut">Sign Out</button>
-        </a>
+  <body>
+    <nav id="nav-bar" class="navbar">
+      <h1>Tic Tac Toe</h1>
+      <a href="register.html" class="container">
+        <button type="button" click="signOutUser()" class="signOut">
+          Sign Out
+        </button>
+      </a>
     </nav>
 
     <header class="header">
-        <div class="content">
-            <h1 class="small">
-                Immerse yourself in the adventure
-            </h1>
-            <input id="play" class="bnt" type="button" value="Play a game" onclick="newLocation()">
-        </div>
+      <div class="content">
+        <h1 class="small">Immerse yourself in the adventure</h1>
+        <input
+          id="play"
+          class="bnt"
+          type="button"
+          value="Play a game"
+          onclick="newLocation()"
+        />
+      </div>
     </header>
 
-    <section class="games-section">
-    </section>
-
+    <section class="games-section"></section>
+    <button id="join-btn">Join</button>
+    <!-- test -->
 
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-        function newLocation() {
-            //alert('clicked')
-            window.location.href = "computer-play-board.html";
-        }
+      function newLocation() {
+        window.location.href = "computer-play-board.html";
+      }
 
-        document.getElementById('play').addEventListener('click', console.log('clicked'));
+      // document.getElementById('play').addEventListener('click', console.log('clicked'));
     </script>
-</body>
-
+  </body>
 </html>
