@@ -20,19 +20,37 @@ db.collection("games")
       showGame(game);
     });
   });
-
 const showGame = (game) => {
-  let data = game.data();
+  const data = game.data();
   gameSection.innerHTML += `
-    <div class="game-fields">
+      <div class="game-fields">
         <h1>Game Tic Tac Toe</h1>
         <p class="game-description">Players number: ${data.players_number}</p>
         <p class="game-description">Opponent: ${data.partner}</p>
-        <a href="computer-play-board.html?${game.id}" class="read-bnt" id="read-btn">Play</a>
-        <button id="btn-join">Join</button>
-        </div>
-        `;
+        <p class="game-description">Board: ${data.board}</p>
+        <div class="my-div"></div>
+        <button class="btn-join">Join</button>
+      </div>
+    `;
+  isBoard(data.board, game.id);
 };
+
+function isBoard(board, gameId) {
+  const myDivs = document.querySelectorAll(".my-div");
+  myDivs.forEach((myDiv) => {
+    switch (board) {
+      case "4x4":
+        console.log(board)
+        myDiv.innerHTML = `<a href="computer-play-board4x4.html" class="read-bnt" id="read-btn">Play</a>`;
+        break;
+      case "3x3":
+        myDiv.innerHTML = `<a href="computer-play-board.html?${gameId}" class="read-bnt" id="read-btn">Play</a>`;
+        break;
+      default:
+        myDiv.innerHTML = `<a href="computer-play-board.html?${gameId}" class="read-bnt" id="read-btn">Play</a>`;
+    }
+  });
+}
 
 var socket = io.connect();
 

@@ -33,11 +33,11 @@ html {
 
 .button-option {
   background: #ffffff;
-  height: 22vmin;
-  width: 22vmin;
+  height: 15vmin;
+  width: 20vmin;
   border: none;
   border-radius: 8px;
-  font-size: 12vmin;
+  font-size: 8vmin;
   color: #d161ff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
