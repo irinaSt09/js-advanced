@@ -27,7 +27,7 @@ const showGame = (game) => {
         <h1>Game Tic Tac Toe</h1>
         <p class="game-description">Players number: ${data.players_number}</p>
         <p class="game-description">Opponent: ${data.partner}</p>
-        <a href="home-page.html?${game.id}" class="read-bnt" id="read-btn">Play</a>
+        <a href="computer-play-board.html?${game.id}" class="read-bnt" id="read-btn">Play</a>
     </div>
     `;
 }

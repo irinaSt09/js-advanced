@@ -1,4 +1,4 @@
-import { Board } from "./board.js"
+import { Board } from "./board4x4.js"
 import { Position } from "./position.js";
 
 const maxScore = 10;
@@ -46,7 +46,7 @@ export class Game {
     }
 
     changeComputerSymbol(row, col) {
-        let cellID = "cell-" + (row * 3 + col)
+        let cellID = "cell-" + (row * 4 + col)
         let cell = document.getElementById(cellID)
         cell.innerHTML = computerSymbol
     }
@@ -85,8 +85,8 @@ export class Game {
         let bestValue = -2147483648;
         let bestNextPosition = new Position(-1, -1);
 
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 3; col++) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
                 if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, computerSymbol);
                     let currentValue = this.minimizer(bestValue, 2147483648, 0);
@@ -116,8 +116,8 @@ export class Game {
 
     makeMinimize(a, b, depth) {
         let bestResult = 2147483648;
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 3; col++) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
                 if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, personSymbol);
                     bestResult = Math.min(bestResult, this.maximizer(a, b, depth + 1));
@@ -147,8 +147,8 @@ export class Game {
 
     makeMaximize(a, b, depth) {
         let bestScore = -2147483648;
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 3; col++) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
                 if (this.board.getTile(row, col) == '-') {
                     this.board.setTile(row, col, computerSymbol);
                     bestScore = Math.max(bestScore, this.minimizer(a, b, depth + 1));
@@ -163,7 +163,6 @@ export class Game {
         return bestScore;
     }
 }
-
 function findCellIndex(id) {
     let coordinates = [0, 0];
     switch (id) {
@@ -177,22 +176,43 @@ function findCellIndex(id) {
             coordinates = [0, 2];
             break;
         case 3:
-            coordinates = [1, 0];
+            coordinates = [0, 3];
             break;
         case 4:
-            coordinates = [1, 1];
+            coordinates = [1, 0];
             break;
         case 5:
-            coordinates = [1, 2];
+            coordinates = [1, 1];
             break;
         case 6:
-            coordinates = [2, 0];
+            coordinates = [1, 2];
             break;
         case 7:
-            coordinates = [2, 1];
+            coordinates = [1, 3];
             break;
         case 8:
+            coordinates = [2, 0];
+            break;
+        case 9:
+            coordinates = [2, 1];
+            break;
+        case 10:
             coordinates = [2, 2];
+            break;
+        case 11:
+            coordinates = [2, 3];
+            break;
+        case 12:
+            coordinates = [3, 0];
+            break;
+        case 13:
+            coordinates = [3, 1];
+            break;
+        case 14:
+            coordinates = [3, 2];
+            break;
+        case 15:
+            coordinates = [3, 3];
             break;
         default:
             console.log("Input is incorrect");

@@ -18,6 +18,20 @@ app.get('/', (req, res) => {
     res.sendFile(path);
 });
 
+app.get('/game/engine4x4.js', (req, res) => {
+    res.set('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/game/engine4x4.js');
+});
+
+app.get('/game/game4x4.js', (req, res) => {
+    res.set('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/game/game4x4.js');
+});
+
+app.get('/game/board4x4.js', (req, res) => {
+    res.set('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/game/board4x4.js');
+});
 
 app.get('/game/engine.js', (req, res) => {
     res.set('Content-Type', 'application/javascript');
