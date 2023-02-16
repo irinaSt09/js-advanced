@@ -28,8 +28,9 @@ const showGame = (game) => {
         <p class="game-description">Players number: ${data.players_number}</p>
         <p class="game-description">Opponent: ${data.partner}</p>
         <p class="game-description">Board: ${data.board}</p>
+        <p class = "room-number"> Room: 1... </p>
         <div class="my-div"></div>
-        <button class="btn-join">Join</button>
+        <button href="game-board.html" class="btn-join">Join</button>
       </div>
     `;
   isBoard(data.board, game.id);
@@ -40,7 +41,7 @@ function isBoard(board, gameId) {
   myDivs.forEach((myDiv) => {
     switch (board) {
       case "4x4":
-        console.log(board)
+        console.log(board);
         myDiv.innerHTML = `<a href="computer-play-board4x4.html" class="read-bnt" id="read-btn">Play</a>`;
         break;
       case "3x3":
@@ -55,17 +56,42 @@ function isBoard(board, gameId) {
 var socket = io.connect();
 
 var room = "gameRoom";
-const players = {};
+const players = []; // room1 - players...
 
 const btnJoin = document.getElementById("join-btn");
 if (btnJoin) {
   btnJoin.addEventListener("click", function () {
     console.log("clicked");
 
-    socket.on("connectToRoom", function (data) {
-      document.body.innerHTML = "";
-      document.write(data);
-      console.log(data);
-    });
+    let text;
+    var newPlayer;
+    let person = prompt("Please enter your name:", "");
+    if (person == null || person == "") {
+      text = "User cancelled the prompt.";
+    } else {
+      text = "Hello " + person;
+
+      //if (players.length < 2) {
+      // != sockets check
+      players.push(person);
+      console.log(players);
+      localStorage.setItem("players", JSON.stringify(players)); // array
+      // localStorage.setItem("nickname", person); // socket -
+      //} else console.log("Sorry, room is full!");
+
+      if (players.length == 2) window.location.href = "././home-page.html";
+
+      socket.on("connectToRoom", function (data) {
+        document.body.innerHTML = "";
+        document.write(data);
+        console.log(data);
+        alert(data);
+      });
+
+      // if ls length
+      //window.location.href = "././home-page.html";
+    }
+    // document.getElementById("demo").innerHTML = text;
+    console.log(text);
   });
 }
