@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Computer Play</title>
-    <link rel="stylesheet" href="./css/styles-board.css">
+    <link rel="stylesheet" href="./css/styles-board.css" />
     <script type="module" src="../game/engine4x4.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="wrapper">
-        <div class="container">
-            <table id="board">
-                <tr>
-                    <td id="cell-0" class="button-option"></td>
-                    <td id="cell-1" class="button-option"></td>
-                    <td id="cell-2" class="button-option"></td>
-                    <td id="cell-3" class="button-option"></td>
-                </tr>
-                <tr>
-                    <td id="cell-4" class="button-option"></td>
-                    <td id="cell-5" class="button-option"></td>
-                    <td id="cell-6" class="button-option"></td>
-                    <td id="cell-7" class="button-option"></td>
-                </tr>
-                <tr>
-                    <td id="cell-8" class="button-option"></td>
-                    <td id="cell-9" class="button-option"></td>
-                    <td id="cell-10" class="button-option"></td>
-                    <td id="cell-11" class="button-option"></td>
-                </tr>
-                <tr>
-                    <td id="cell-12" class="button-option"></td>
-                    <td id="cell-13" class="button-option"></td>
-                    <td id="cell-14" class="button-option"></td>
-                    <td id="cell-15" class="button-option"></td>
-                </tr>
-            </table>
-        </div>
-        <button id="btn-restart" class="buttons" onclick="startNewGame()">New Game</button>
+      <div class="container">
+        <table id="board">
+          <tr>
+            <td id="cell-0" class="cell"></td>
+            <td id="cell-1" class="cell"></td>
+            <td id="cell-2" class="cell"></td>
+            <td id="cell-3" class="cell"></td>
+          </tr>
+          <tr>
+            <td id="cell-4" class="cell"></td>
+            <td id="cell-5" class="cell"></td>
+            <td id="cell-6" class="cell"></td>
+            <td id="cell-7" class="cell"></td>
+          </tr>
+          <tr>
+            <td id="cell-8" class="cell"></td>
+            <td id="cell-9" class="cell"></td>
+            <td id="cell-10" class="cell"></td>
+            <td id="cell-11" class="cell"></td>
+          </tr>
+          <tr>
+            <td id="cell-12" class="cell"></td>
+            <td id="cell-13" class="cell"></td>
+            <td id="cell-14" class="cell"></td>
+            <td id="cell-15" class="cell"></td>
+          </tr>
+        </table>
+      </div>
+      <button id="btn-restart" class="buttons" onclick="startNewGame()">
+        New Game
+      </button>
     </div>
-</body>
-
+  </body>
 </html>

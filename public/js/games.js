@@ -61,37 +61,32 @@ const players = []; // room1 - players...
 const btnJoin = document.getElementById("join-btn");
 if (btnJoin) {
   btnJoin.addEventListener("click", function () {
-    console.log("clicked");
+    // console.log("clicked");
 
-    let text;
-    var newPlayer;
-    let person = prompt("Please enter your name:", "");
-    if (person == null || person == "") {
-      text = "User cancelled the prompt.";
-    } else {
-      text = "Hello " + person;
+    // let text;
+    // var newPlayer;
+    // let person = prompt("Please enter your name:", "");
+    // if (person == null || person == "") {
+    //   text = "User cancelled the prompt.";
+    // } else {
+    //   text = "Hello " + person;
 
-      //if (players.length < 2) {
-      // != sockets check
-      players.push(person);
-      console.log(players);
-      localStorage.setItem("players", JSON.stringify(players)); // array
-      // localStorage.setItem("nickname", person); // socket -
-      //} else console.log("Sorry, room is full!");
+    //   //if (players.length < 2) {
+    //   // != sockets check
+    //   players.push(person);
+    //   console.log(players);
+    //   localStorage.setItem("players", JSON.stringify(players)); // array
+    //   // localStorage.setItem("nickname", person); // socket -
+    //   //} else console.log("Sorry, room is full!");
 
-      if (players.length == 2) window.location.href = "././home-page.html";
+    //if (players.length >= 2)
+    window.location.href = "././home-page.html";
 
-      socket.on("connectToRoom", function (data) {
-        document.body.innerHTML = "";
-        document.write(data);
-        console.log(data);
-        alert(data);
-      });
-
-      // if ls length
-      //window.location.href = "././home-page.html";
-    }
-    // document.getElementById("demo").innerHTML = text;
-    console.log(text);
+    // socket.on("connectToRoom", function (data) {
+    //   document.body.innerHTML = "";
+    //   document.write(data);
+    //   console.log(data);
+    //   alert(data);
+    // });
   });
 }

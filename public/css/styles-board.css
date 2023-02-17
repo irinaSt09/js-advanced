@@ -23,7 +23,7 @@ html {
   left: 50%;
 }
 
-.container {
+.board {
   width: 70vmin;
   height: 70vmin;
   display: flex;
@@ -31,15 +31,24 @@ html {
   gap: 2vmin;
 }
 
-.button-option {
+.cell {
   background: #ffffff;
-  height: 15vmin;
+  height: 20vmin;
   width: 20vmin;
   border: none;
   border-radius: 8px;
   font-size: 8vmin;
   color: #d161ff;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.cell:hover {
+  background-color: lightgray;
+}
+
+.message {
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 #btn-restart:hover {

@@ -1,28 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="./css/styles-board.css">
-</head>
-<body>
-   <div class="wrapper">
-       <div class="container">
-           <!-- only one click in box validation -->
-           <button class="button-option" id="btn-first" onclick="mark(); this.onclick=null;"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-           <button class="button-option"></button>
-       </div>
-       <button id="btn-restart" class="buttons" onclick="refreshPage()">New Game</button>
-   </div>
-   <div >
-   </div>
-   <script src="/socket.io/socket.io.js"></script>
-   <script async defer src="./js/game-board.js"></script>
-</body>
+    <link rel="stylesheet" href="./css/styles-board.css" />
+    <script async defer src="./js/game-board.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="board">
+        <div class="cell" data-row="1" data-col="1"></div>
+        <div class="cell" data-row="1" data-col="2"></div>
+        <div class="cell" data-row="1" data-col="3"></div>
+        <div class="cell" data-row="2" data-col="1"></div>
+        <div class="cell" data-row="2" data-col="2"></div>
+        <div class="cell" data-row="2" data-col="3"></div>
+        <div class="cell" data-row="3" data-col="1"></div>
+        <div class="cell" data-row="3" data-col="2"></div>
+        <div class="cell" data-row="3" data-col="3"></div>
+      </div>
+      <button id="btn-restart" class="buttons" onclick="refreshPage()">
+        New Game
+      </button>
+    </div>
+
+    <div class="message"></div>
+    <button id="join-button">Join</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const board = document.querySelector(".board");
+      const message = document.querySelector(".message");
+      const joinButton = document.getElementById("join-button");
+
+      let mark;
+
+      socket.on("mark", (data) => {
+        mark = data;
+      });
+
+      socket.on("players", (data) => {
+        if (data.length === 1) {
+          message.textContent = "Waiting for another player...";
+        } else if (data.length === 2) {
+          message.textContent = "";
+        }
+      });
+
+      socket.on("move", (data) => {
+        const { mark, row, col } = data;
+        const cell = board.querySelector(
+          `[data-row="${row}"][data-col="${col}"]`
+        );
+        cell.textContent = mark;
+      });
+
+      //   socket.on("win", (data) => {
+      //     message.textContent = `${data} wins!`;
+      //     disableBoard();
+      //   });
+
+      //   socket.on("draw", () => {
+      //     message.textContent = "Draw!";
+      //     disableBoard();
+      //   });
+
+      board.addEventListener("click", (event) => {
+        const cell = event.target;
+        const row = cell.getAttribute("data-row");
+        const col = cell.getAttribute("data-col");
+
+        if (cell.classList.contains("cell") && cell.textContent === "") {
+          socket.emit("move", { row, col });
+        }
+      });
+
+      //   function disableBoard() {
+      //     const cells = board.querySelectorAll(".cell");
+      //     cells.forEach((cell) => {
+      //       cell.style.cursor = "default";
+      //     });
+      //   }
+    </script>
+  </body>
 </html>
