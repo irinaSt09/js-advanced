@@ -3,28 +3,27 @@
   <head>
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./css/styles-board.css" />
-    <script async defer src="./js/game-board.js"></script>
+    <script async defer src="./js/multiplayer-board.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <div class="board">
-        <div class="cell" data-row="1" data-col="1"></div>
-        <div class="cell" data-row="1" data-col="2"></div>
-        <div class="cell" data-row="1" data-col="3"></div>
-        <div class="cell" data-row="2" data-col="1"></div>
-        <div class="cell" data-row="2" data-col="2"></div>
-        <div class="cell" data-row="2" data-col="3"></div>
-        <div class="cell" data-row="3" data-col="1"></div>
-        <div class="cell" data-row="3" data-col="2"></div>
-        <div class="cell" data-row="3" data-col="3"></div>
+        <div class="cell" id="multiplayer" data-row="1" data-col="1"></div>
+        <div class="cell" id="multiplayer" data-row="1" data-col="2"></div>
+        <div class="cell" id="multiplayer" data-row="1" data-col="3"></div>
+        <div class="cell" id="multiplayer" data-row="2" data-col="1"></div>
+        <div class="cell" id="multiplayer" data-row="2" data-col="2"></div>
+        <div class="cell" id="multiplayer" data-row="2" data-col="3"></div>
+        <div class="cell" id="multiplayer" data-row="3" data-col="1"></div>
+        <div class="cell" id="multiplayer" data-row="3" data-col="2"></div>
+        <div class="cell" id="multiplayer" data-row="3" data-col="3"></div>
       </div>
-      <button id="btn-restart" class="buttons" onclick="refreshPage()">
-        New Game
+      <button id="btn-restart" class="buttons" onclick="clearBoard()">
+        Restart
       </button>
     </div>
 
     <div class="message"></div>
-    <button id="join-button">Join</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -32,9 +31,6 @@
 
       const board = document.querySelector(".board");
       const message = document.querySelector(".message");
-      const joinButton = document.getElementById("join-button");
-
-      let mark;
 
       socket.on("mark", (data) => {
         mark = data;
@@ -43,6 +39,7 @@
       socket.on("players", (data) => {
         if (data.length === 1) {
           message.textContent = "Waiting for another player...";
+          console.log(message);
         } else if (data.length === 2) {
           message.textContent = "";
         }
@@ -56,15 +53,19 @@
         cell.textContent = mark;
       });
 
-      //   socket.on("win", (data) => {
-      //     message.textContent = `${data} wins!`;
-      //     disableBoard();
-      //   });
+      socket.on("win", (data) => {
+        message.textContent = `Player ${data} wins!`;
+        console.log(message);
 
-      //   socket.on("draw", () => {
-      //     message.textContent = "Draw!";
-      //     disableBoard();
-      //   });
+        disableBoard();
+      });
+
+      socket.on("draw", () => {
+        message.textContent = "Draw!";
+        console.log(message);
+
+        disableBoard();
+      });
 
       board.addEventListener("click", (event) => {
         const cell = event.target;
@@ -76,12 +77,12 @@
         }
       });
 
-      //   function disableBoard() {
-      //     const cells = board.querySelectorAll(".cell");
-      //     cells.forEach((cell) => {
-      //       cell.style.cursor = "default";
-      //     });
-      //   }
+      function disableBoard() {
+        const cells = board.querySelectorAll(".cell");
+        cells.forEach((cell) => {
+          cell.style.cursor = "default";
+        });
+      }
     </script>
   </body>
 </html>

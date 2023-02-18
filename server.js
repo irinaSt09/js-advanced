@@ -14,6 +14,49 @@ const players = {}; // object to keep track of players and their marks
 
 let currentTurn = "X"; // starting player mark
 
+const board = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+];
+
+function checkWinner(mark, board) {
+  // check rows
+  for (let i = 0; i < 3; i++) {
+    if (board[i][0] === mark && board[i][1] === mark && board[i][2] === mark) {
+      return true;
+    }
+  }
+
+  // check columns
+  for (let i = 0; i < 3; i++) {
+    if (board[0][i] === mark && board[1][i] === mark && board[2][i] === mark) {
+      return true;
+    }
+  }
+
+  // check diagonals
+  if (board[0][0] === mark && board[1][1] === mark && board[2][2] === mark) {
+    return true;
+  }
+  if (board[0][2] === mark && board[1][1] === mark && board[2][0] === mark) {
+    return true;
+  }
+
+  return false;
+}
+
+function checkDraw() {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === "") {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 app.get("/", (req, res) => {
   const path = join(cwd, "public", "index.html");
   res.sendFile(path);
@@ -53,16 +96,6 @@ app.get("/game/position.js", (req, res) => {
   res.sendFile(__dirname + "/game/position.js");
 });
 
-// const addClient = (socket) => {
-//   console.log("New client connected", socket.id);
-//   users[socket.id] = socket;
-// };
-
-// const removeClient = (socket) => {
-//   console.log("Client disconnected", socket.id);
-//   delete users[socket.id];
-// };
-
 io.on("connection", (socket) => {
   console.log(`A new player connected: ${socket.id}`);
 
@@ -89,6 +122,13 @@ io.on("connection", (socket) => {
 
       // send the move to all players
       io.emit("move", { mark: players[socket.id], row, col });
+
+      // check for a winner or a draw
+      if (checkWinner(players[socket.id], board)) {
+        io.emit("win", socket.id);
+      } else if (checkDraw()) {
+        io.emit("draw");
+      }
     }
   });
 
@@ -99,33 +139,26 @@ io.on("connection", (socket) => {
   });
 });
 
-// var room = 1; // name
-// io.sockets.on("connection", (socket) => {
-//   let id = socket.id;
-//   //addClient(socket);
-
-//   socket.join("room-" + room);
-//   io.sockets.in("room-" + room).emit(
-//     "connectToRoom",
-//     "New player joined room number " + room, //+ " with socket id: " + socket.id,
-
-//     function () {
-//       clients.push(socket.id);
-//       console.log(clients);
-//       // if (clients.length == 2) {
-//       //   console.log("can start game"); // TODO: redirect to game board/Play
-//       // }
-//     }
-//   );
-
-//   // socket.leave("room" + room);
-
-//   socket.on("disconnect", () => {
-//     //removeClient(socket);
-//     socket.broadcast.emit("clientdisconnect", id);
-//   });
-// });
-
 server.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+// to fix
+
+// const boardTemplate = document.querySelector(".board");
+// const cell00 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${0}"]`
+// );
+// const cell01 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${1}"]`
+// );
+// const cell02 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${2}"]`
+// );
+// ...
+
+// const board = [
+//   [cell00, cell01, cell02],
+//   ["", "", ""],
+//   ["", "", ""],
+// ];
