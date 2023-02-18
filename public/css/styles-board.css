@@ -67,3 +67,33 @@ td {
   vertical-align: middle;
   border: 1px solid black;
 }
+
+.button-container {
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f55781;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.button:last-child {
+  margin-right: 10px;
+}
+
+.button:hover {
+  background-color: #FF9800;
+  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+}

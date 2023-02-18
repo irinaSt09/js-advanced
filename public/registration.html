@@ -72,6 +72,7 @@
                     .then(() => {
                         sendMessage(email, password);
                         alert('You have successfully created an account.')
+                        location.reload();
                     })
                     .catch((error) => {
                         alert(error);
