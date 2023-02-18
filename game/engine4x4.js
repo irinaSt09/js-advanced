@@ -1,6 +1,6 @@
-import { Game } from "./game4x4.js";
+import { Game } from "./game.js";
 
-const game = new Game();
+var game = new Game();
 
 const board = document.getElementById("board");
 const cells = board.getElementsByTagName("td");
@@ -9,6 +9,10 @@ const cells = board.getElementsByTagName("td");
 
 // Define startNewGame function in the global scope
 window.startNewGame = function () {
-    //location.reload()
     game.start(cells);
+};
+
+window.restartGame = function () {
+    location.reload();
+    game = new Game();
 };
