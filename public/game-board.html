@@ -3,7 +3,7 @@
   <head>
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./css/styles-board.css" />
-    <script async defer src="./js/game-board.js"></script>
+    <script async defer src="./js/multiplayer-board.js"></script>
   </head>
   <body>
     <div class="wrapper">
@@ -18,13 +18,12 @@
         <div class="cell" id="multiplayer" data-row="3" data-col="2"></div>
         <div class="cell" id="multiplayer" data-row="3" data-col="3"></div>
       </div>
-      <button id="btn-restart" class="buttons" onclick="refreshPage()">
-        New Game
+      <button id="btn-restart" class="buttons" onclick="clearBoard()">
+        Restart
       </button>
     </div>
 
     <div class="message"></div>
-    <!-- <button id="join-button">Join</button> -->
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -32,14 +31,6 @@
 
       const board = document.querySelector(".board");
       const message = document.querySelector(".message");
-
-      // on Join click - player joined emit
-      ///
-      socket.on("playerJoined", (playerId) => {
-        console.log(`Player ${playerId} joined the room`);
-      });
-      ///
-      let mark;
 
       socket.on("mark", (data) => {
         mark = data;

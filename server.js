@@ -96,31 +96,8 @@ app.get("/game/position.js", (req, res) => {
   res.sendFile(__dirname + "/game/position.js");
 });
 
-// const addClient = (socket) => {
-//   console.log("New client connected", socket.id);
-//   users[socket.id] = socket;
-// };
-
-// const removeClient = (socket) => {
-//   console.log("Client disconnected", socket.id);
-//   delete users[socket.id];
-// };
-
 io.on("connection", (socket) => {
   console.log(`A new player connected: ${socket.id}`);
-
-  ///////
-  // let room = null;
-
-  // socket.on("joinRoom", (roomId) => {
-  //   if (!room) {
-  //     room = roomId;
-  //     socket.join(room);
-  //     console.log(`Player ${socket.id} joined room ${room}`);
-  //     io.to(room).emit("playerJoined", socket.id);
-  //   }
-  // });
-  ///////
 
   // assign a mark to the player
   if (Object.keys(players).length === 0) {
@@ -162,33 +139,26 @@ io.on("connection", (socket) => {
   });
 });
 
-// var room = 1; // name
-// io.sockets.on("connection", (socket) => {
-//   let id = socket.id;
-//   //addClient(socket);
-
-//   socket.join("room-" + room);
-//   io.sockets.in("room-" + room).emit(
-//     "connectToRoom",
-//     "New player joined room number " + room, //+ " with socket id: " + socket.id,
-
-//     function () {
-//       clients.push(socket.id);
-//       console.log(clients);
-//       // if (clients.length == 2) {
-//       //   console.log("can start game"); // TODO: redirect to game board/Play
-//       // }
-//     }
-//   );
-
-//   // socket.leave("room" + room);
-
-//   socket.on("disconnect", () => {
-//     //removeClient(socket);
-//     socket.broadcast.emit("clientdisconnect", id);
-//   });
-// });
-
 server.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
+
+// to fix
+
+// const boardTemplate = document.querySelector(".board");
+// const cell00 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${0}"]`
+// );
+// const cell01 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${1}"]`
+// );
+// const cell02 = boardTemplate.querySelector(
+//   `[data-row="${0}"][data-col="${2}"]`
+// );
+// ...
+
+// const board = [
+//   [cell00, cell01, cell02],
+//   ["", "", ""],
+//   ["", "", ""],
+// ];

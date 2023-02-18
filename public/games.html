@@ -33,8 +33,10 @@
       </div>
     </header>
 
-    <section class="games-section"></section>
-    <button id="join-btn" class="bnt">Play with friend</button>
+    <section class="games-section">
+      <button id="join-btn" class="bnt">Play with friend</button>
+      <div class="games-wrapper"></div>
+    </section>
 
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
@@ -44,8 +46,6 @@
       function newLocation() {
         window.location.href = "computer-play-board.html";
       }
-
-      // document.getElementById('play').addEventListener('click', console.log('clicked'));
     </script>
   </body>
 </html>
