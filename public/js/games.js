@@ -42,7 +42,7 @@ function isBoard(board, gameId) {
     switch (board) {
       case "4x4":
         console.log(board);
-        myDiv.innerHTML = `<a href="computer-play-board4x4.html" class="read-bnt" id="read-btn">Play</a>`;
+        myDiv.innerHTML = `<a href="computer-play-board4x4.html${gameId}" class="read-bnt" id="read-btn">Play</a>`;
         break;
       case "3x3":
         myDiv.innerHTML = `<a href="computer-play-board.html?${gameId}" class="read-bnt" id="read-btn">Play</a>`;

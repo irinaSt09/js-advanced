@@ -1,4 +1,4 @@
-import { Game } from "./game.js";
+import { Game } from "./game4x4.js";
 
 var game = new Game();
 
