@@ -30,7 +30,7 @@ const showGame = (game) => {
         <p class="game-description">Board: ${data.board}</p>
         <p class = "room-number"> Room: 1... </p>
         <div class="my-div"></div>
-        <button href="game-board.html" class="btn-join">Join</button>
+        <button id="join-btn" class="bnt">Join</button>
       </div>
     `;
   isBoard(data.board, game.id);
@@ -61,6 +61,8 @@ const players = []; // room1 - players...
 const btnJoin = document.getElementById("join-btn");
 if (btnJoin) {
   btnJoin.addEventListener("click", function () {
+    // io.emit("playerJoined", socket.id);
+
     // console.log("clicked");
 
     // let text;

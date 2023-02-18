@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
     <script defer type="module" src="js/games.js"></script>
+
     <link rel="stylesheet" href="css/games.css" />
   </head>
 
@@ -26,15 +27,14 @@
           id="play"
           class="bnt"
           type="button"
-          value="Play a game"
+          value="Play with computer"
           onclick="newLocation()"
         />
       </div>
     </header>
 
     <section class="games-section"></section>
-    <button id="join-btn">Join</button>
-    <!-- test -->
+    <button id="join-btn" class="bnt">Play with friend</button>
 
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>

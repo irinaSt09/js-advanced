@@ -14,6 +14,49 @@ const players = {}; // object to keep track of players and their marks
 
 let currentTurn = "X"; // starting player mark
 
+const board = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+];
+
+function checkWinner(mark, board) {
+  // check rows
+  for (let i = 0; i < 3; i++) {
+    if (board[i][0] === mark && board[i][1] === mark && board[i][2] === mark) {
+      return true;
+    }
+  }
+
+  // check columns
+  for (let i = 0; i < 3; i++) {
+    if (board[0][i] === mark && board[1][i] === mark && board[2][i] === mark) {
+      return true;
+    }
+  }
+
+  // check diagonals
+  if (board[0][0] === mark && board[1][1] === mark && board[2][2] === mark) {
+    return true;
+  }
+  if (board[0][2] === mark && board[1][1] === mark && board[2][0] === mark) {
+    return true;
+  }
+
+  return false;
+}
+
+function checkDraw() {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === "") {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 app.get("/", (req, res) => {
   const path = join(cwd, "public", "index.html");
   res.sendFile(path);
@@ -66,6 +109,19 @@ app.get("/game/position.js", (req, res) => {
 io.on("connection", (socket) => {
   console.log(`A new player connected: ${socket.id}`);
 
+  ///////
+  // let room = null;
+
+  // socket.on("joinRoom", (roomId) => {
+  //   if (!room) {
+  //     room = roomId;
+  //     socket.join(room);
+  //     console.log(`Player ${socket.id} joined room ${room}`);
+  //     io.to(room).emit("playerJoined", socket.id);
+  //   }
+  // });
+  ///////
+
   // assign a mark to the player
   if (Object.keys(players).length === 0) {
     players[socket.id] = "X";
@@ -89,6 +145,13 @@ io.on("connection", (socket) => {
 
       // send the move to all players
       io.emit("move", { mark: players[socket.id], row, col });
+
+      // check for a winner or a draw
+      if (checkWinner(players[socket.id], board)) {
+        io.emit("win", socket.id);
+      } else if (checkDraw()) {
+        io.emit("draw");
+      }
     }
   });
 
